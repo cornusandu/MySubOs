@@ -1,0 +1,1 @@
+To remember: Compiling without stdlib  ----  g++ -o output.exe input.o -nostdlib -nodefaultlibs -fno-exceptions -fno-rtti

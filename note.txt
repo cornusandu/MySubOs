@@ -1,0 +1,3 @@
+RING 0: Sandboxer
+RING 1: Kernel & OS
+RING 3: Everything else

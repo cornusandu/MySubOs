@@ -1,2 +1,0 @@
-g++ -O2 -r -o ./runtime/data.o -I "./libs" -I "./src" -L "./libs" -L "./src" ./src/runtime/*   # Will be useful to allow community to make custom programs (standard library will be disabled!)
-g++ -O2 -o main.exe -I "./libs" -L "./libs" ./src/bootloader.cpp ./src/mm.cpp

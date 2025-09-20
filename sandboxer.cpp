@@ -1,4 +1,3 @@
-#include <windows.h>
 #include <cstdint>
 #include <iostream>
 #include <fstream>
@@ -6,7 +5,8 @@
 #include "utils.hpp"
 
 class CPU {
-    uint16_t v0, pc;
+    uint16_t v0;
+    uint16_t pc = 0;
     uint16_t r0, r1, r2, r3, r4, r5;
 
     private:
@@ -109,28 +109,28 @@ class CPU {
                     // print
                     std::cout << ascii_bytes_to_string(int_to_bytes((int16_t) v0));
                     break;
-                } case (10) : {
+                } case (10): {
                     // printliteral
                     std::cout << v0;
                     break;
-                } case (11) {
+                } case (11): {
                     // str &reg reg
                     uint16_t &reg = get_reg(byte_to_int_be(content[pc]));
                     uint16_t destination = reg;
                     uint16_t &reg2 = get_reg(byte_to_int_be(content[pc + 1]));
                     pc += 2;
                     content[to_relative(destination, size) - 1] = int_to_byte(reg2) >> 8;
-                    content[to_relative(destination, size)] = int_to_byte(reg2) & 0xFF;
+                    content[to_relative(destination, size)] = int_to_byte(reg2 & 0xFF);
                     break;
-                } case (12) {
+                } case (12): {
                     // str &reg imm
                     uint16_t &reg = get_reg(byte_to_int_be(content[pc]));
                     uint16_t destination = reg;
                     uint16_t immediate = two_bytes_to_int_be({content[pc + 1], content[pc + 2]});
                     pc += 3;
-                    content[to_relative(destination, size) - 1] = int_to_byte(immediate)
+                    content[to_relative(destination, size) - 1] = int_to_byte(immediate);
                     break;
-                } case (13) {
+                } case (13): {
                     // str reg &reg
                     uint16_t &reg = get_reg(byte_to_int_be(content[pc]));
                     pc++;

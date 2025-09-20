@@ -113,6 +113,32 @@ class CPU {
                     // printliteral
                     std::cout << v0;
                     break;
+                } case (11) {
+                    // str &reg reg
+                    uint16_t &reg = get_reg(byte_to_int_be(content[pc]));
+                    uint16_t destination = reg;
+                    uint16_t &reg2 = get_reg(byte_to_int_be(content[pc + 1]));
+                    pc += 2;
+                    content[to_relative(destination, size) - 1] = int_to_byte(reg2) >> 8;
+                    content[to_relative(destination, size)] = int_to_byte(reg2) & 0xFF;
+                    break;
+                } case (12) {
+                    // str &reg imm
+                    uint16_t &reg = get_reg(byte_to_int_be(content[pc]));
+                    uint16_t destination = reg;
+                    uint16_t immediate = two_bytes_to_int_be({content[pc + 1], content[pc + 2]});
+                    pc += 3;
+                    content[to_relative(destination, size) - 1] = int_to_byte(immediate)
+                    break;
+                } case (13) {
+                    // str reg &reg
+                    uint16_t &reg = get_reg(byte_to_int_be(content[pc]));
+                    pc++;
+                    uint16_t &reg2 = get_reg(byte_to_int_be(content[pc]));
+                    pc++;
+                    uint16_t source = reg2;
+                    reg = two_bytes_to_int_be({content[to_relative(source, size) - 1], content[to_relative(source, size)]});
+                    break;
                 } default: {
                     std::cerr << "Invalid instruction: " << instruction << std::endl;
                     exit(1);

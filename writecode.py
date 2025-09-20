@@ -1,18 +1,5 @@
 import struct
 
-with open('code.bin', 'wb') as f:
-    f.write(b'\x06\x00\x00\x02')  # Move number at address 13 into r0
-    f.write(b'\x06\x01\x00\x00')  # Move number at address 14 into r1
-    f.write(b'\x04\x00\x00\x01')  # Add r0 and r1, storing the result in r0
-    f.write(b'\x03\x06\x00')  # Move r0 into v0
-    f.write(b'\x0A')  # Printliteral
-    f.write(b'\x00')  # halt
-    f.write(b'\x00\x04\x00\x02') # Values 4 and 2
-
-with open("code.myasm", "r") as f:
-    lines = f.read().split("\n")
-    for i, line in enumerate(lines):
-        lines[i] = line.split(" ")
 
 REGTOID = {
     'r0': b'\x00',

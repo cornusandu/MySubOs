@@ -1,0 +1,7 @@
+ToAdd:
+    * str &reg reg               V
+    * str &reg immediate         V
+    * str reg &reg               V
+    * farjmp file address
+    * filejmp file
+    * labels
